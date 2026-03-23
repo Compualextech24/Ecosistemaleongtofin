@@ -20,7 +20,7 @@
             background-color: #ffffff;
             color: #333;
             line-height: 1.6;
-            overflow-x: hidden; /* Evita scroll horizontal por las animaciones */
+            overflow-x: hidden;
         }
 
         /* --- HEADER & NAVEGACIÓN --- */
@@ -30,16 +30,25 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: fixed; /* Cambiado a fixed para que se mantenga al bajar */
+            position: fixed;
             top: 0;
             z-index: 1000;
             background: rgba(255, 255, 255, 0.95);
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        .logo-container img {
-            height: 50px;
-            width: auto;
+        .logo-text {
+            font-weight: 900;
+            font-size: 1.2rem;
+            color: #222;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-text span {
+            color: #00add8;
         }
 
         .menu-toggle {
@@ -57,7 +66,7 @@
             border-radius: 2px;
         }
 
-        /* --- HERO SECTION (HEADER CON IMAGEN) --- */
+        /* --- HERO SECTION CON TRANSICIÓN --- */
         .hero {
             height: 80vh;
             position: relative;
@@ -68,7 +77,6 @@
             color: white;
             overflow: hidden;
             background-color: #222;
-            margin-top: 0;
         }
 
         .hero-bg {
@@ -77,18 +85,20 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* SUSTITUIR NOMBRE DE LA IMAGEN DEL HEADER ABAJO (FONDO DEL TEMPLO) */
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('IMAGEN_DEL_HEADER.jpg'); 
             background-size: cover;
             background-position: center;
             z-index: 1;
-            transform: scale(1.1); /* Efecto sutil de zoom */
-            animation: heroZoom 10s infinite alternate;
+            transition: opacity 1.5s ease-in-out;
         }
 
-        @keyframes heroZoom {
-            from { transform: scale(1); }
-            to { transform: scale(1.1); }
+        /* CARGA DE TUS IMÁGENES DE BANNER */
+        .bg-1 {
+            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('imagenes/banner1.png');
+            opacity: 1;
+        }
+        .bg-2 {
+            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('imagenes/banner2.png');
+            opacity: 0;
         }
 
         .hero-content {
@@ -103,21 +113,12 @@
             text-transform: uppercase;
             font-size: clamp(1rem, 4vw, 1.5rem);
             margin-bottom: 10px;
-            opacity: 0;
-            animation: fadeInUp 1s forwards 0.5s;
         }
 
         .hero-content h1 {
             font-weight: 900;
             font-size: clamp(2rem, 8vw, 4rem);
             line-height: 1.1;
-            opacity: 0;
-            animation: fadeInUp 1s forwards 0.8s;
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         /* --- GALERÍA DE USUARIOS --- */
@@ -149,12 +150,11 @@
 
         .gallery-item {
             width: 100%;
-            opacity: 0; /* Inicialmente invisible para la animación JS */
-            transform: translateX(-100px); /* Posición inicial para efecto izquierda a derecha */
+            opacity: 0;
+            transform: translateX(-100px);
             transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        /* Clase que aplicará JS cuando el usuario haga scroll */
         .gallery-item.visible {
             opacity: 1;
             transform: translateX(0);
@@ -177,7 +177,6 @@
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            position: relative;
         }
 
         .image-container img {
@@ -191,14 +190,14 @@
             transform: scale(1.05);
         }
 
-        /* BOTÓN FLOTANTE (CHAT) */
+        /* BOTÓN FLOTANTE */
         .fab-button {
             position: fixed;
             bottom: 30px;
             right: 30px;
             width: 60px;
             height: 60px;
-            background-color: #f04e6e; /* Color rosado de la captura */
+            background-color: #f04e6e;
             border-radius: 50%;
             display: flex;
             justify-content: center;
@@ -206,11 +205,6 @@
             box-shadow: 0 4px 15px rgba(240, 78, 110, 0.4);
             cursor: pointer;
             z-index: 999;
-            transition: transform 0.3s ease;
-        }
-
-        .fab-button:hover {
-            transform: scale(1.1);
         }
 
         .fab-button svg {
@@ -219,27 +213,23 @@
             height: 30px;
         }
 
-        /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
-            header { padding: 10px 5%; }
-            .logo-container img { height: 40px; }
-            .gallery-section { padding: 50px 5%; }
-            .gallery-grid { gap: 40px; }
+            .hero-content h1 { font-size: 2.2rem; }
+            .logo-text { font-size: 0.9rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- BOTÓN DE CHAT FLOTANTE -->
     <div class="fab-button">
         <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
     </div>
 
-    <!-- HEADER -->
     <header>
         <div class="logo-container">
-            <!-- LOGO PRINCIPAL (PUEDES SUSTITUIR EL SRC) -->
-            <img src="imagenes/logo.png" alt="Logo">
+            <div class="logo-text">
+                ECOSISTEMA <span>LEÓN GUANAJUATO</span>
+            </div>
         </div>
         <div class="menu-toggle" id="btnMenu">
             <span></span>
@@ -248,16 +238,16 @@
         </div>
     </header>
 
-    <!-- HERO / SECCIÓN PRINCIPAL -->
     <section class="hero">
-        <div class="hero-bg"></div>
+        <div id="bg1" class="hero-bg bg-1"></div>
+        <div id="bg2" class="hero-bg bg-2"></div>
+        
         <div class="hero-content">
             <h2>M U N I C I P I O</h2>
             <h1>León De Los Aldama</h1>
         </div>
     </section>
 
-    <!-- GALERÍA DINÁMICA -->
     <main class="gallery-section">
         <div class="gallery-header">
             <h3>Contenido de Usuarios</h3>
@@ -266,57 +256,45 @@
 
         <div class="gallery-grid">
             
-            <!-- IMAGEN 1 -->
             <div class="gallery-item">
-                <h4>Imagen 1</h4>
+                <h4>LIONMATCH - Parejas y amigos </h4>
                 <div class="image-container">
-                    <!-- SUSTITUIR NOMBRE DE LA IMAGEN NÚMERO 1 ABAJO -->
-                    <img src="IMAGEN_1.jpg" alt="Imagen 1">
+                    <img src="imagenes/lionmatch.png" alt="Imagen 1">
                 </div>
             </div>
 
-            <!-- IMAGEN 2 -->
             <div class="gallery-item">
                 <h4>Imagen 2</h4>
                 <div class="image-container">
-                    <!-- SUSTITUIR NOMBRE DE LA IMAGEN NÚMERO 2 ABAJO -->
-                    <img src="IMAGEN_2.jpg" alt="Imagen 2">
+                    <img src="imagenes/IMAGEN_2.jpg" alt="Imagen 2">
                 </div>
             </div>
 
-            <!-- IMAGEN 3 -->
             <div class="gallery-item">
                 <h4>Imagen 3</h4>
                 <div class="image-container">
-                    <!-- SUSTITUIR NOMBRE DE LA IMAGEN NÚMERO 3 ABAJO -->
-                    <img src="IMAGEN_3.jpg" alt="Imagen 3">
+                    <img src="imagenes/IMAGEN_3.jpg" alt="Imagen 3">
                 </div>
             </div>
 
-            <!-- IMAGEN 4 -->
             <div class="gallery-item">
                 <h4>Imagen 4</h4>
                 <div class="image-container">
-                    <!-- SUSTITUIR NOMBRE DE LA IMAGEN NÚMERO 4 ABAJO -->
-                    <img src="IMAGEN_4.jpg" alt="Imagen 4">
+                    <img src="imagenes/IMAGEN_4.jpg" alt="Imagen 4">
                 </div>
             </div>
 
-            <!-- IMAGEN 5 -->
             <div class="gallery-item">
                 <h4>Imagen 5</h4>
                 <div class="image-container">
-                    <!-- SUSTITUIR NOMBRE DE LA IMAGEN NÚMERO 5 ABAJO -->
-                    <img src="IMAGEN_5.jpg" alt="Imagen 5">
+                    <img src="imagenes/IMAGEN_5.jpg" alt="Imagen 5">
                 </div>
             </div>
 
-            <!-- IMAGEN 6 -->
             <div class="gallery-item">
                 <h4>Imagen 6</h4>
                 <div class="image-container">
-                    <!-- SUSTITUIR NOMBRE DE LA IMAGEN NÚMERO 6 ABAJO -->
-                    <img src="IMAGEN_6.jpg" alt="Imagen 6">
+                    <img src="imagenes/IMAGEN_6.jpg" alt="Imagen 6">
                 </div>
             </div>
 
@@ -325,37 +303,36 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const btnMenu = document.getElementById('btnMenu');
-            
-            // Acción simple para el menú
-            btnMenu.addEventListener('click', () => {
-                console.log("Menú clickeado");
-                // Aquí podrías abrir un menú lateral real
-            });
+            // Lógica de Transición del Banner
+            const bg1 = document.getElementById('bg1');
+            const bg2 = document.getElementById('bg2');
+            let showingFirst = true;
 
-            // Lógica de Scroll para efectos de Transición (Izquierda a Derecha)
+            setInterval(() => {
+                if (showingFirst) {
+                    bg1.style.opacity = '0';
+                    bg2.style.opacity = '1';
+                } else {
+                    bg1.style.opacity = '1';
+                    bg2.style.opacity = '0';
+                }
+                showingFirst = !showingFirst;
+            }, 5000);
+
+            // Lógica de Scroll
             const galleryItems = document.querySelectorAll('.gallery-item');
-            
             const revealOnScroll = () => {
                 const triggerBottom = window.innerHeight * 0.85;
-
                 galleryItems.forEach(item => {
                     const itemTop = item.getBoundingClientRect().top;
-
                     if (itemTop < triggerBottom) {
                         item.classList.add('visible');
-                    } else {
-                        // Opcional: quitar la clase si quieres que se repita la animación al subir
-                        // item.classList.remove('visible'); 
                     }
                 });
             };
 
-            // Ejecutar al cargar por si hay elementos ya visibles
-            revealOnScroll();
-
-            // Escuchar el evento de scroll
             window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll();
         });
     </script>
 </body>
